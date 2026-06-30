@@ -101,12 +101,15 @@ class ActionsDataCase(ActionsDataCaseBase):
         expected = {
             "id": self.picking.id,
             "move_line_count": 4,
+            "package_level_count": 2,
+            "bulk_line_count": 2,
             "name": self.picking.name,
             "note": "read me",
             "origin": "created by test",
             "weight": 110.0,
             "partner": {"id": self.customer.id, "name": self.customer.name},
             "carrier": {"id": carrier.id, "name": carrier.name},
+            "ship_carrier": None,
         }
         self.assertEqual(data.pop("scheduled_date").split("T")[0], "2020-08-03")
         self.assertDictEqual(data, expected)

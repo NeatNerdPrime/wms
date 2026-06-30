@@ -12,10 +12,14 @@ setuptools.setup(
         'odoo13-addon-delivery_carrier_warehouse',
         'odoo13-addon-delivery_preference_glue_stock_picking_group',
         'odoo13-addon-sale_stock_available_to_promise_release',
+        'odoo13-addon-sale_stock_available_to_promise_release_cutoff',
+        'odoo13-addon-sale_stock_available_to_promise_release_dropshipping',
         'odoo13-addon-shopfloor',
         'odoo13-addon-shopfloor_base',
         'odoo13-addon-shopfloor_batch_automatic_creation',
         'odoo13-addon-shopfloor_checkout_sync',
+        'odoo13-addon-shopfloor_delivery_shipment',
+        'odoo13-addon-shopfloor_delivery_shipment_mobile',
         'odoo13-addon-shopfloor_example',
         'odoo13-addon-shopfloor_mobile',
         'odoo13-addon-shopfloor_mobile_base',
@@ -35,6 +39,8 @@ setuptools.setup(
         'odoo13-addon-stock_picking_type_shipping_policy_group_by',
         'odoo13-addon-stock_reception_screen',
         'odoo13-addon-stock_reception_screen_measuring_device',
+        'odoo13-addon-stock_reception_screen_mrp_subcontracting',
+        'odoo13-addon-stock_reception_screen_qty_by_packaging',
         'odoo13-addon-stock_storage_type',
         'odoo13-addon-stock_storage_type_buffer',
         'odoo13-addon-stock_storage_type_putaway_abc',
@@ -42,5 +48,6 @@ setuptools.setup(
     classifiers=[
         'Programming Language :: Python',
         'Framework :: Odoo',
+        'Framework :: Odoo :: 13.0',
     ]
 )

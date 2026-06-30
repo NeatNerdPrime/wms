@@ -54,9 +54,10 @@ const Checkout = {
             </div>
             <div v-if="state_is('select_line')">
                 <item-detail-card
-                    v-if="state.data.picking.carrier"
+                    v-if="current_carrier()"
+                    :card_color="utils.colors.color_for('detail_carrier_card')"
                     :key="make_state_component_key(['picking-carrier', state.data.picking.id])"
-                    :record="state.data.picking.carrier"
+                    :record="current_carrier()"
                     :options="{main: true, key_title: 'name', title_icon: 'mdi-truck-outline'}"
                     />
                 <detail-picking-select
@@ -157,12 +158,12 @@ const Checkout = {
                 <item-detail-card :card_color="utils.colors.color_for('screen_step_done')"
                     :key="make_state_component_key(['location_src'])"
                     :record="state.data.line"
-                    :options="{main: true, key_title: 'location_src.name', title_action_field: {action_val_path: 'location_src.barcode'}}"
+                :options="{main: true, key_title: 'location_src.name', title_action_field: {action_val_path: 'location_src.barcode'}, }"
                     />
                 <item-detail-card :card_color="utils.colors.color_for('screen_step_done')"
                     :key="make_state_component_key(['product'])"
                     :record="state.data.line"
-                    :options="utils.wms.move_line_product_detail_options(state.data.line)"
+                    :options="utils.wms.move_line_product_detail_options(state.data.line, {fields_blacklist: ['quantity']})"
                     />
                 <v-card class="pa-2" :color="utils.colors.color_for('screen_step_todo')">
                     <packaging-qty-picker
@@ -246,6 +247,11 @@ const Checkout = {
         },
     },
     methods: {
+        current_carrier: function() {
+            return (
+                this.state.data.picking.carrier || this.state.data.picking.ship_carrier
+            );
+        },
         screen_title: function() {
             if (_.isEmpty(this.current_doc()) || this.state_is("confirm_start"))
                 return this.menu_item().name;
@@ -289,6 +295,7 @@ const Checkout = {
         select_line_manual_select_opts: function() {
             return {
                 group_color: this.utils.colors.color_for("screen_step_todo"),
+                card_klass: "loud-labels",
             };
         },
         select_package_manual_select_opts: function() {
@@ -547,7 +554,6 @@ const Checkout = {
                         this.reset_notification();
                     },
                     on_qty_update: qty => {
-                        console.log(qty);
                         this.state.data.qty = qty;
                     },
                     on_confirm: () => {
